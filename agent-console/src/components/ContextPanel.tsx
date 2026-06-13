@@ -47,7 +47,7 @@ export default function ContextPanel() {
       </div>
       <div className="flex-1 overflow-y-auto p-2 font-mono text-xs">
         {currentData ? (
-          <JsonTree data={currentData} diff={diff} path="" />
+          <JsonTree data={currentData} diff={diff ?? undefined} path="" />
         ) : (
           <div className="text-gray-500 italic p-2">Computing diff...</div>
         )}
@@ -61,6 +61,14 @@ type JsonDiff = {
   removed?: Record<string, unknown>;
   changed?: Record<string, unknown>;
 };
+
+function decodeHtmlEntities(value: string) {
+  return value.replace(/&quot;|&ldquo;|&#34;|&rdquo;/g, (match) =>
+    match === "&quot;" || match === "&ldquo;" || match === "&#34;" || match === "&rdquo;"
+      ? '"'
+      : match
+  );
+}
 
 function JsonTree({
   data,
@@ -82,7 +90,7 @@ function JsonTree({
     const isNew = diff?.added?.[path] !== undefined;
     const isRemoved = diff?.removed?.[path] !== undefined;
     const isChanged = diff?.changed?.[path] !== undefined;
-    let bgClass = isNew
+    const bgClass = isNew
       ? "bg-green-900/30 text-green-300"
       : isRemoved
         ? "bg-red-900/30 text-red-300 line-through"
@@ -92,7 +100,7 @@ function JsonTree({
 
     return (
       <span className={`${color} ${bgClass} px-1 rounded`}>
-        {typeof data === "string" ? `"${data}"` : String(data)}
+        {typeof data === "string" ? `"${decodeHtmlEntities(data)}"` : String(data)}
       </span>
     );
   }
@@ -102,7 +110,7 @@ function JsonTree({
   const isNew = diff?.added?.[path] !== undefined;
   const isRemoved = diff?.removed?.[path] !== undefined;
   const isChanged = diff?.changed?.[path] !== undefined;
-  let borderClass = isNew
+  const borderClass = isNew
     ? "border-green-500 bg-green-900/10"
     : isRemoved
       ? "border-red-500 bg-red-900/10"
@@ -117,7 +125,7 @@ function JsonTree({
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <span className="text-gray-500 text-[10px]">
-          {isExpanded ? "▼" : "▶"}
+          {isExpanded ? "v" : ">"}
         </span>
         <span className="text-purple-400">
           {isArray ? `[${keys.length}]` : `{${keys.length}}`}
@@ -136,7 +144,7 @@ function JsonTree({
         <div className="ml-4">
           {keys.map((key) => (
             <div key={key} className="flex">
-              <span className="text-cyan-400 mr-2 shrink-0">"{key}":</span>
+              <span className="text-cyan-400 mr-2 shrink-0">{decodeHtmlEntities(key)}:</span>
               <JsonTree
                 data={(data as Record<string, unknown>)[key]}
                 diff={diff}

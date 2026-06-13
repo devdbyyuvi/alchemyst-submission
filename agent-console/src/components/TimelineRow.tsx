@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { TimelineEvent } from "../lib/types/timeline";
+import { TimelineEvent, TokenBatchEvent } from "../lib/types/timeline";
 import { useUIStore } from "../lib/uiStore";
 
 interface TimelineRowProps {
@@ -28,7 +28,7 @@ export function TimelineRow({ event }: TimelineRowProps) {
     return (
       <div
         className={`${baseClasses} border-l-4 border-blue-500 bg-blue-900/10`}
-        onClick={() => setActiveChatBlockId(event.call_id)} 
+        onClick={() => setActiveChatBlockId(event.call_id)}
       >
         <div className="flex justify-between text-blue-400 font-bold">
           <span>{event.tool_name}</span>
@@ -102,7 +102,7 @@ function TokenBatchRow({
   baseClasses,
   time,
 }: {
-  event: any;
+  event: TokenBatchEvent;
   baseClasses: string;
   time: string;
 }) {
@@ -115,7 +115,7 @@ function TokenBatchRow({
     >
       <div className="flex justify-between items-center text-cyan-400">
         <span className="font-bold">
-          {isExpanded ? "▼" : "▶"} Streamed {event.tokenCount} tokens
+          {isExpanded ? "v" : ">"} Streamed {event.tokenCount} tokens
         </span>
         <span className="text-gray-500 text-[10px]">
           {event.durationMs}ms (seq: {event.seq})
@@ -123,9 +123,14 @@ function TokenBatchRow({
       </div>
 
       {isExpanded && (
-        <div className="mt-2 p-2 bg-black/40 rounded text-gray-300 whitespace-pre-wrap break-all">
-          {event.text}
-        </div>
+        <>
+          <div className="mt-2 p-2 bg-black/40 rounded text-gray-300 whitespace-pre-wrap break-all">
+            {event.text}
+          </div>
+          <div className="mt-2 p-2 bg-black/40 rounded text-gray-300 whitespace-pre-wrap break-all">
+            {time}
+          </div>
+        </>
       )}
     </div>
   );

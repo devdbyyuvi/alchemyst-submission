@@ -13,7 +13,7 @@ const worker = typeof window !== 'undefined'
   ? new Worker(new URL('./workers/diffWorker.ts', import.meta.url)) 
   : null;
 
-export const useContextStore = create<ContextState>((set, get) => {
+export const useContextStore = create<ContextState>((set) => {
   if (worker) {
     worker.onmessage = (event) => {
       const { type, contextId, diff, newData } = event.data;
