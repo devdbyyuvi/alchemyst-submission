@@ -54,4 +54,4 @@ graph TD
 ## Video 
 
 
-PS: This is my alt account @yuvraajnarula => https://www.github.com/yuvraajnarula
+PS: This is my alt account you can go to my main @yuvraajnarula => https://www.github.com/yuvraajnarula for my profile :)
