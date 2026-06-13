@@ -51,7 +51,7 @@ graph TD
 <img width="1870" height="897" alt="image" src="https://github.com/user-attachments/assets/50c2e9d1-633e-4a94-a349-5d9704531b6a" />
 <img width="1021" height="907" alt="image" src="https://github.com/user-attachments/assets/030a1876-4fbe-4d59-9f0d-20ec4134ed00" />
 
-## [Video for chaos mode](https://github.com/devdbyyuvi/alchemyst-submission/blob/main/screenrecorder-video.mp4) 
+## [Video for chaos mode](https://youtu.be/IsBKILBi9PM) 
 
 
 PS: This is my alt account you can go to my main @yuvraajnarula => https://www.github.com/yuvraajnarula for my profile :)
