@@ -1,6 +1,20 @@
 ## Architecture
 
 This application is built on a strict separation between a Protocol Layer (handling raw WebSocket frames, reordering, and synchronous heartbeats) and a Presentation Layer (Zustand stores and React components). The Protocol Layer utilizes a Map-based reordering buffer and a synchronous Fast-Path to guarantee sub-millisecond `PONG` and `TOOL_ACK` responses, completely decoupling network compliance from React's render cycle. This architecture ensures the UI remains responsive and state remains consistent even under the extreme main-thread blocking conditions introduced by the backend's Chaos Mode.
+```cmd
+cd agent-server
+npm install
+npm run build
+node dist/index.js <params>
+```
+params : mode | port (eg node dist/index.js --mode chaos --port 8080)
+
+```cmd
+cd agent-client
+npm install
+npm run build
+npm run dev
+```
 
 ## WebSocket State Machine
 
